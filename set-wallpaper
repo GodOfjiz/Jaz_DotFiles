@@ -1,0 +1,15 @@
+#Stored in ~/.local/bin/
+#To use this scipt, make it executable:
+#chmod +x ~/.local/bin/set-wallpaper
+#And execute it with the wallpaper path as an argument:
+#Usage: set-wallpaper /path/to/wallpaper.jpg
+
+#!/bin/bash
+
+WALLPAPER="$1"
+
+hyprctl hyprpaper reload ,"$WALLPAPER"
+
+wal -i "$WALLPAPER" -n 
+
+"$HOME/check_lid.sh"
