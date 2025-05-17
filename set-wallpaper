@@ -5,11 +5,26 @@
 #Usage: set-wallpaper /path/to/wallpaper.jpg
 
 #!/bin/bash
+# filepath: /home/jasminder/.local/bin/set-wallpaper
 
 WALLPAPER="$1"
+CONF_PATH="$HOME/.config/hypr/hyprpaper.conf"
 
+if [ -z "$WALLPAPER" ]; then
+    echo "Usage: set-wallpaper /path/to/wallpaper.jpg"
+    exit 1
+fi
+
+# Clear hyprpaper.conf and add new wallpaper lines
+echo '' > "$CONF_PATH"
+echo "preload = $WALLPAPER" >> "$CONF_PATH"
+echo "wallpaper =,$WALLPAPER" >> "$CONF_PATH"
+
+# Reload hyprpaper to apply the new wallpaper
 hyprctl hyprpaper reload ,"$WALLPAPER"
 
+# Generate pywal colors
 wal -i "$WALLPAPER" -n 
 
+# Run lid check script
 "$HOME/check_lid.sh"
